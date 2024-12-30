@@ -18786,9 +18786,11 @@ static SDValue LowerToTLSExecModel(GlobalAddressSDNode *GA, SelectionDAG &DAG,
                                    bool is64Bit, bool isPIC) {
   SDLoc dl(GA);
 
+  bool is_priv = cast<GlobalVariable>(GA->getGlobal())->hasAttribute("priv_level");
   // Get the Thread Pointer, which is %gs:0 (32-bit) or %fs:0 (64-bit).
   Value *Ptr = Constant::getNullValue(
-      PointerType::get(*DAG.getContext(), is64Bit ? 257 : 256));
+      /* PointerType::get(*DAG.getContext(), is64Bit ? 257 : 256)); */
+      PointerType::get(*DAG.getContext(), (!is_priv) ? 257 : 256));
 
   SDValue ThreadPointer =
       DAG.getLoad(PtrVT, dl, DAG.getEntryNode(), DAG.getIntPtrConstant(0, dl),

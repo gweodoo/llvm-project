@@ -596,7 +596,7 @@ void X86AsmPrinter::LowerTlsAddr(X86MCInstLower &MCInstLowering,
                                 .addReg(0)
                                 .addExpr(Sym)
                                 .addReg(0));
-    const MCSymbol *TlsGetAddr = Ctx.getOrCreateSymbol("__tls_get_addr");
+    const MCSymbol *TlsGetAddr = Ctx.getOrCreateSymbol("__extls_get_addr");
     if (NeedsPadding) {
       if (!UseGot)
         EmitAndCountInstruction(MCInstBuilder(X86::DATA16_PREFIX));

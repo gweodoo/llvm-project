@@ -3709,7 +3709,7 @@ ARMTargetLowering::LowerToTLSGeneralDynamicModel(GlobalAddressSDNode *GA,
   TargetLowering::CallLoweringInfo CLI(DAG);
   CLI.setDebugLoc(dl).setChain(Chain).setLibCallee(
       CallingConv::C, Type::getInt32Ty(*DAG.getContext()),
-      DAG.getExternalSymbol("__tls_get_addr", PtrVT), std::move(Args));
+      DAG.getExternalSymbol("__extls_get_addr", PtrVT), std::move(Args));
 
   std::pair<SDValue, SDValue> CallResult = LowerCallTo(CLI);
   return CallResult.first;
